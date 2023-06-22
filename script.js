@@ -1,3 +1,40 @@
+const monthly = {
+    "arcade":{"value":"$9/mo","discount":null},
+    "advanced": { "value": "$12/mo", "discount": null },
+    "pro": { "value": "$15/mo", "discount": null },
+    "onlineService": { "value": "+$1/mo" },
+    "largerStorage": { "value": "+$2/mo" },
+    "customizableProfile": { "value": "+$2/mo" },
+}
+
+const yearly = {
+    "arcade": { "value": "$90/yr", "discount": "2 months free" },
+    "advanced": { "value": "$120/yr", "discount": "2 months free" },
+    "pro": { "value": "$150/yr", "discount": "2 months free" },
+    "onlineService": { "value": "+$10/yr" },
+    "largerStorage": { "value": "+$20/yr" },
+    "customizableProfile": { "value": "+$20/yr" },
+}
+
+/*----- Change values of Plan------- */
+
+document.querySelector("#timemodel").addEventListener("change", (el) => {
+    if (el.target.checked) {
+        document.querySelectorAll("[data-value]").forEach((elem) => {
+            const yearlyValues = yearly[elem.dataset.value]
+            elem.textContent = yearlyValues["value"];
+            yearlyValues["discount"] != null ? elem.insertAdjacentHTML("afterend", `<p class="discount fs-100 ff__regular">${yearlyValues["discount"]}</p>`) : "";
+        })
+    } else {
+        document.querySelectorAll("[data-value]").forEach((elem) => {
+            const monthlyValues = monthly[elem.dataset.value]
+            elem.textContent = monthlyValues["value"];
+            document.querySelectorAll(".discount")?.forEach((el) => el.remove())
+        })
+    }
+})
+
+/*-----/Change values of Plan------- */
 
 /*-----Change style of cards on click-------*/
 document.querySelectorAll(".select__plan .card").forEach((elem) => {
@@ -7,7 +44,7 @@ document.querySelectorAll(".select__plan .card").forEach((elem) => {
     });
 })
 
-/*change style in pick add ons step*/
+    /*change style in pick add ons step*/
 document.querySelectorAll(".pick__addons .card").forEach((elem) => {
     elem.addEventListener("click", () => {
         elem.classList.toggle("checked");
