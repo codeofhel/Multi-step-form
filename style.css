@@ -267,7 +267,7 @@ main {
     color: var(--clr-neutral);
 }
 
-.menu__bullet.bulletOn{
+.menu__bullet.bulletOn {
     background-color: var(--clr-menu-active-bullet);
     color: var(--clr-secondary);
 }
@@ -290,7 +290,7 @@ main {
     padding-inline: 1.8rem;
 }
 
-.step div {
+.step>div {
     padding-bottom: 0.5rem;
 }
 
@@ -313,7 +313,8 @@ main {
 .planItem {
     display: flex;
     width: 100%;
-    /* max-height: 4.81rem; */
+    max-height: 3.7rem;
+    padding-bottom: 1rem;
 }
 
 .planItem img {
@@ -476,6 +477,8 @@ input:checked~label .slider:before {
         padding: 1rem;
         max-height: 37.5rem;
         height: 100vh;
+        box-shadow: 0px 25px 40px -20px rgba(0, 0, 0, 0.10);
+        border-radius: 0.9rem;
     }
 
     .menu__steps {
@@ -534,6 +537,8 @@ input:checked~label .slider:before {
 
     .planItem {
         flex-direction: column;
+        max-height: 9rem;
+        padding-bottom: 1.5rem;
     }
 
     .planItem img {
