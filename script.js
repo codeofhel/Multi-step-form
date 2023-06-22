@@ -1,5 +1,5 @@
 const monthly = {
-    "arcade":{"value":"$9/mo","discount":null},
+    "arcade": { "value": "$9/mo", "discount": null },
     "advanced": { "value": "$12/mo", "discount": null },
     "pro": { "value": "$15/mo", "discount": null },
     "onlineService": { "value": "+$1/mo" },
@@ -19,6 +19,7 @@ const yearly = {
 /*----- Change values of Plan------- */
 
 document.querySelector("#timemodel").addEventListener("change", (el) => {
+    
     if (el.target.checked) {
         document.querySelectorAll("[data-value]").forEach((elem) => {
             const yearlyValues = yearly[elem.dataset.value]
@@ -32,6 +33,8 @@ document.querySelector("#timemodel").addEventListener("change", (el) => {
             document.querySelectorAll(".discount")?.forEach((el) => el.remove())
         })
     }
+    updateData();
+    displayFinishBoard();
 })
 
 /*-----/Change values of Plan------- */
@@ -41,14 +44,18 @@ document.querySelectorAll(".select__plan .card").forEach((elem) => {
     elem.addEventListener("click", function () {
         document.querySelectorAll(".select__plan .card.checked").forEach((el) => el.classList.remove("checked"));
         elem.classList.add("checked");
+        addPlan(elem)
+        displayFinishBoard()
     });
 })
 
-    /*change style in pick add ons step*/
+        /*change style in pick add ons step*/
 document.querySelectorAll(".pick__addons .card").forEach((elem) => {
     elem.addEventListener("click", () => {
         elem.classList.toggle("checked");
+        addRemoveAddOns();
         validateInputCheck(elem)
+        displayFinishBoard()
     });
 })
 
@@ -61,11 +68,73 @@ function validateInputCheck(elem) {
 /*-----/Change style of cards on click-------*/
 
 
+/*----Finish Board---*/
+
+const finishBoardInfo = {
+    "plan": { "description": "", "value": "" },
+    "addOns": [],
+}
+
+function addPlan(elem) {
+    const namePlan = elem.querySelector(".namePlan");
+    const pricePlan = elem.querySelector(".pricePlan");
+    finishBoardInfo.plan.description = namePlan.textContent;
+    finishBoardInfo.plan.value = pricePlan.textContent;
+}
+
+function addRemoveAddOns() {
+    finishBoardInfo["addOns"].length = 0;
+    validateAddOnsChecked();
+}
+
+function validateAddOnsChecked() {
+    finishBoardInfo["addOns"].length = 0;
+    document.querySelectorAll(".pick__addons .card.checked").forEach((elem) => {
+        const nameAddon = elem.querySelector(".nameAddon");
+        const priceAddon = elem.querySelector(".priceAddon p");
+
+        finishBoardInfo["addOns"].push({ "description": nameAddon.textContent, "value": priceAddon.textContent })
+    })
+}
+
+function updateData() {
+    document.querySelectorAll(".select__plan .card.checked").forEach((el) => {
+        addPlan(el);
+    });
+    validateAddOnsChecked();
+}
+
+function displayFinishBoard() {
+    const summaryPlan = document.querySelector(".summaryPlan");
+    const summaryPlanValue = document.querySelector(".summaryPlanValue");
+    const addonsList = document.querySelector(".add_ons");
+    
+    summaryPlan.textContent = finishBoardInfo.plan.description;
+    summaryPlanValue.textContent = finishBoardInfo.plan.value;
+    addonsList.innerHTML = "";
+    finishBoardInfo.addOns.map((elem) => {
+        
+        const summaryAddon = `<div><p class='summaryAddon clr-secondary-text fs-200 ff__regular'>${elem.description}</p><p class='summaryAddonValue fs-200 ff__regular'>${elem.value}</p></div>`;
+        addonsList.insertAdjacentHTML("beforeend", summaryAddon);
+    })
+    
+    function calculateTotal() {
+        const planValue = parseFloat(finishBoardInfo.plan.value.slice(1));
+        var boi = finishBoardInfo.addOns.reduce((acc,elem) => {
+            return acc + parseFloat(elem.value.slice(2));
+        },0)
+        const total = boi + planValue;
+        document.querySelector(".totalpay").textContent = `$${total}/yr` 
+    }
+    calculateTotal();
+}
+
+/*----/Finish Board---*/
+
 function changeStep(n) {
     const currentCard = document.querySelector("[data-currentCard]");
     const currentCardVal = currentCard.dataset["currentcard"];
     const currentCardElement = document.querySelector("[data-id=" + currentCardVal + "]");
-    //const selectedCardElement = n == "nextCard" ? currentCardElement.nextElementSibling : (n == "prevCard" ? currentCardElement.previousElementSibling : currentCardElement);
     const selectedCardElement = selectedCardEl();
     const selectedCard_id = selectedCardElement.dataset.id;
     const btns = document.querySelector(".previous__next");

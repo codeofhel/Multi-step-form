@@ -360,6 +360,62 @@ main {
     align-items: center;
 }
 
+/*-------Finnish Board-------*/
+
+.summary {
+    background-color: var(--clr-bg-input-active);
+    border-radius: 0.5rem;
+    padding: 1rem;
+}
+
+.summaryPlanBox {
+    border-bottom: 1px solid var(--clr-borders);
+    padding-bottom: 0.5rem;
+    position: relative;
+}
+
+.add_ons {
+    padding-top: 0.5rem;
+    position: relative;
+}
+
+.add_ons > div {
+    margin-bottom: 0.5rem;
+}
+
+.summaryPlan{
+    color: var(--clr-secondary);
+    display: inline-block;
+}
+
+.summaryPlanBtn,.summaryAddon{
+    display: inline-block;
+}
+
+.summaryPlanValue,
+.summaryAddonValue {
+    color: var(--clr-secondary);
+    display: inline-block;
+    right: 1rem;
+    position: absolute;
+}
+
+.summaryTotal {
+    padding: 1rem;
+    position: relative;
+}
+
+.summaryTotal p{
+    display: inline-block;
+}
+
+.summaryTotal p:last-of-type{
+    display: inline-block;
+    right: 2rem;
+    position: absolute;
+    color: var(--clr-primary);
+}
+
 /*------switch button---------*/
 
 .timeModelPlan {
