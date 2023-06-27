@@ -359,9 +359,10 @@ main {
     position: absolute;
     color: var(--clr-primary);
 }
+
 /*-------Thanks window------*/
 
-.thankyouWindow{
+.thankyouWindow {
     width: 100%;
     height: 100%;
     display: flex;
@@ -369,13 +370,15 @@ main {
     justify-content: center;
     align-items: center;
     text-align: center;
+    background-color: var(--clr-neutral);
+    padding: 3rem 0.5rem;
 }
 
-.thankyouWindow img{
+.thankyouWindow img {
     padding-bottom: var(--fs-900);
 }
 
-.thankyouWindow h2{
+.thankyouWindow h2 {
     padding-bottom: var(--fs-200);
 }
 
