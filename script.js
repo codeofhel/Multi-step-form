@@ -98,7 +98,8 @@ function changeStep(n, e) {
 
 
     function hideStuff() {
-        btns.querySelectorAll(".nav__btn,.thankyouWindow").forEach((elem) => elem.classList.add("hide"))
+        btns.querySelectorAll(".nav__btn").forEach((elem) => elem.classList.add("hide"))
+        document.querySelector(".thankyouWindow").classList.add("hide");
         currentCardElement.classList.add("hide"); /*hide the old card*/
     }
 
